@@ -10,6 +10,8 @@ end
 class Banana < Sinatra::Application
   configure do
     set :coinbase, Coinbase::Client.new(ENV['COINBASE_API_KEY'])
+    set :quantity_regex, /^([0-9])+$/
+    set :email_regex, /^([0-9][A-Z][a-z])+\@([0-9][A-Z][a-z])+\.([A-Z][a-z])+$/
   end
 
   get '/' do
@@ -17,7 +19,11 @@ class Banana < Sinatra::Application
   end
 
   post '/request' do
-    unless params[:quantity].validate(/^([0-9])+$/)
+    if params[:quantity].validate(settings.quantity_regex)
+      @quantity_error = "Your 'quantity' field contained invalid data (#{params[:quantity]}. Please try again."
+    end
+    if params[:email
+    unless 
       erb :error
     else
       erb :request
