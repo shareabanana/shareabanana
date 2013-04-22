@@ -26,7 +26,6 @@ Subject: You have received a banana from #{sender}!
 <embed src='http://shareabanana/img/bananas/banana_1.svg' />
 MESSAGE_END
 
-      Net::SMTP.enable_tls
       Net::SMTP.start('localhost') do |smtp|
         smtp.send_message message, sender, receiver
       end      
