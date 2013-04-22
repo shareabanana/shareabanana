@@ -3,7 +3,7 @@
   <%= erb :header, :layout => false %>
   <body>
     <div class="container form-sendbanana">
-        <h2 class="form-sendbanana-heading">Share a Banana</h2>
+        <h2 class="form-sendbanana-heading">Share a Banana <img class="inline-banana" src="/img/inline_banana.png"></img></h2>
 	<% if @quantity_error %>
 	<%= "<b>Error:</b> #{@quantity_error}" %>
 	<% end %>

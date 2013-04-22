@@ -5,12 +5,12 @@
     <div class="container">
 
       <form class="form-sendbanana" action="/request" method="post">
-        <h2 class="form-sendbanana-heading">Share a Banana<img class="inline-banana" src="../public/img/inline_banana.png"></img></h2>
-        <input type="text" class="input-block-level" placeholder="Quantity" name="quantity">
-        <input type="text" class="input-block-level" placeholder="Receiving email address" name="receiving">
+        <h2 class="form-sendbanana-heading">Share a Banana <img class="inline-banana" src="/img/inline_banana.png"></img></h2>
+        <input type="text" class="input-block-level" placeholder="Receiver's email address" name="receiving">
         <input type="text" class="input-block-level" placeholder="Your email address" name="sending">
 
         <button class="btn btn-large btn-primary" type="submit">Send</button>
+	<%= erb :donate, :layout => false %>
       </form>
 
     </div> <!-- /container -->
@@ -20,6 +20,5 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="/js/bootstrap.min.js" type="text/javascript"></script>
-    <!--erb :footer, :layout => false %-->
   </body>
 </html>

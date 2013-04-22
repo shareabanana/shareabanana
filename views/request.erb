@@ -5,9 +5,10 @@
     <div class="container">
 
       <form class="form-sendbanana" action="/" method="post">
-        <h2 class="form-sendbanana-heading">Share a Banana</h2>
+        <h2 class="form-sendbanana-heading">Share a Banana <img class="inline-banana" src="/img/inline_banana.png"></img></h2>
 	Your request has been received. Check your email for a payment request.<br>
 	Once you pay through Coinbase, click the confirmation page to check your status and confirm the shipment.
+	<%= erb :donate, :layout => false %>
       </form>
 
     </div> <!-- /container -->
