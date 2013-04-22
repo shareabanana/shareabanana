@@ -11,7 +11,7 @@ class Banana < Sinatra::Application
   end
 
   get '/balance' do
-    return settings.coinbase.balance.to_f
+    return settings.coinbase.balance.to_f.to_s
   end
 end
 
