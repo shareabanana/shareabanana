@@ -20,10 +20,15 @@ class Banana < Sinatra::Application
 
   post '/request' do
     if params[:quantity].validate(settings.quantity_regex)
-      @quantity_error = "Your 'quantity' field contained invalid data (#{params[:quantity]}. Please try again."
+      @quantity_error = "Your 'quantity' field contained invalid data (#{params[:quantity]}."
     end
-    if params[:email
-    unless 
+    if params[:receiving].validate(settings.email_regex)
+      @receiving_error = "Your 'receiving email' field contained invalid data (#{params[:receiving]})."
+    end
+    if params[:sending].validate(settings.email_regex)
+      @sending_error = "Your 'sending email' field contained invalid data (#{params[:sending]})."
+    end
+    if @quantity_error || @receiving_error || @sending_error
       erb :error
     else
       erb :request
