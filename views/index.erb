@@ -70,13 +70,13 @@
 	  </a>
 	  <ul class="dropdown-menu">
 	    <% (0..10).each {|n| %>
-	    <li><%= n %></li>
+	    <li><a href="#"><%= n %></a></li>
 	    <% } %>
 	  </ul>
 	</div>
 <!--        <input type="text" class="input-block-level" placeholder="Quantity" name="quantity"> -->
         <input type="text" class="input-block-level" placeholder="Receiving email address" name="receiving">
-        <input type="text" class="input-block-level" placeholder="Receiving email address" name="sending">
+        <input type="text" class="input-block-level" placeholder="Your email address" name="sending">
 	<!--
             <label class="checkbox">
               <input type="checkbox" value="remember-me"> Remember me
