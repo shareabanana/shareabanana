@@ -21,7 +21,7 @@ From: #{sender} <#{sender}>
 To: #{receiver} <#{receiver}>
 Subject: You have received a banana from #{sender}!
 
-<embed src='http://shareabanana/img/bananas/banana_1.svg' />
+<embed src='http://shareabanana.com/img/bananas/banana_1.svg' />
 MESSAGE_END
 
     smtp = Net::SMTP.new 'smtp.gmail.com', 587
