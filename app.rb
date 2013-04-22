@@ -17,10 +17,11 @@ class Banana < Sinatra::Application
   end
 
   post '/request' do
-    unless params[:quantity].validate(/^[0-9]$/)
+    unless params[:quantity].validate(/^([0-9])+$/)
       erb :error
+    else
+      erb :request
     end
-    erb :request
   end
 
   get '/balance' do
