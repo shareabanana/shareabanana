@@ -61,7 +61,6 @@
 
     <div class="container">
 
-      <form class="form-sendbanana" action="/" method="post">
         <h2 class="form-sendbanana-heading">Share a Banana</h2>
 	<% if @quantity_error %>
 	<%= "<b>Error:</b> #{@quantity_error}" %>
@@ -76,8 +75,7 @@
 	<% end %>
 	<br>
 	<br>
-	<button class="btn btn-large btn-danger"><i class="icon-white icon-arrow-left"></i></button>
-      </form>
+	<button class="btn btn-large btn-danger" onclick="window.history.back()"><i class="icon-white icon-arrow-left"></i></button>
 
     </div> <!-- /container -->
 
