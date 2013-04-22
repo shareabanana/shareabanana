@@ -23,6 +23,8 @@ Content-type: text/html
 Subject: You have received a banana from #{sender}!
 
 <embed src='http://shareabanana.com/img/bananas/banana_1.svg' />
+<br>
+Send more bananas at <a href='http://shareabanana.com/'>shareabanana.com</a>
 MESSAGE_END
 
     smtp = Net::SMTP.new 'smtp.gmail.com', 587
