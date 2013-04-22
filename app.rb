@@ -8,7 +8,7 @@ class Banana < Sinatra::Application
     erb :index
   end
 
-  get '/our_balance' do
+  get '/balance' do
     return coinbase.balance.to_f
   end
 end
