@@ -9,7 +9,7 @@ class Banana < Sinatra::Application
   end
 
   get '/our_balance' do
-    coinbase.balance.to_f
+    return coinbase.balance.to_f
   end
 end
 
