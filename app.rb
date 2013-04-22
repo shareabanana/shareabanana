@@ -19,6 +19,7 @@ class Banana < Sinatra::Application
     message = <<MESSAGE_END
 From: #{sender} <#{sender}>
 To: #{receiver} <#{receiver}>
+Content-type: text/html
 Subject: You have received a banana from #{sender}!
 
 <embed src='http://shareabanana.com/img/bananas/banana_1.svg' />
