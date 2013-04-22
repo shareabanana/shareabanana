@@ -10,6 +10,10 @@ class Banana < Sinatra::Application
     erb :index
   end
 
+  post '/' do
+    erb :request
+  end
+
   get '/balance' do
     return settings.coinbase.balance.to_f.to_s
   end
