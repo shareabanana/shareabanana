@@ -10,7 +10,10 @@ class Banana < Sinatra::Application
     erb :index
   end
 
-  post '/' do
+  post '/request' do
+    unless params['quantity'].validate(/^[0-9]$/)
+      erb :error
+    end
     erb :request
   end
 

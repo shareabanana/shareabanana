@@ -61,27 +61,12 @@
 
     <div class="container">
 
-      <form class="form-sendbanana" action="/" method="post">
+      <form class="form-sendbanana" action="/request" method="post">
         <h2 class="form-sendbanana-heading">Share a Banana</h2>
-	<div class="input-append btn-group">
-	  <input class="input-block-level" id="appendedInputButton" size="16" type="text">
-	  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-            <span class="caret"></span>
-	  </a>
-	  <ul class="dropdown-menu">
-	    <% (0..10).each {|n| %>
-	    <li><a href="#"><%= n %></a></li>
-	    <% } %>
-	  </ul>
-	</div>
-<!--        <input type="text" class="input-block-level" placeholder="Quantity" name="quantity"> -->
+        <input type="text" class="input-block-level" placeholder="Quantity" name="quantity">
         <input type="text" class="input-block-level" placeholder="Receiving email address" name="receiving">
         <input type="text" class="input-block-level" placeholder="Your email address" name="sending">
-	<!--
-            <label class="checkbox">
-              <input type="checkbox" value="remember-me"> Remember me
-            </label>
-	    -->
+
         <button class="btn btn-large btn-primary" type="submit">Send</button>
       </form>
 

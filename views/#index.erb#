@@ -1,0 +1,5 @@
+        <input type="text" class="input-block-level" placeholder="Quantity" name="quantity">
+        <input type="text" class="input-block-level" placeholder="Receiving email address" name="receiving">
+        <input type="text" class="input-block-level" placeholder="Your email address" name="sending">
+
+        <button class="btn btn-large btn-primary" type="submit">Send</button>
