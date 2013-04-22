@@ -1,6 +1,12 @@
 require 'sinatra'
 require 'coinbase'
 
+class String
+  def validate regex
+    !self[regex].nil?
+  end
+end
+
 class Banana < Sinatra::Application
   configure do
     set :coinbase, Coinbase::Client.new(ENV['COINBASE_API_KEY'])
@@ -11,7 +17,7 @@ class Banana < Sinatra::Application
   end
 
   post '/request' do
-    unless params['quantity'].validate(/^[0-9]$/)
+    unless params[:quantity].validate(/^[0-9]$/)
       erb :error
     end
     erb :request
