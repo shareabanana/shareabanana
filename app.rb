@@ -13,12 +13,10 @@ class Banana < Sinatra::Application
     set :coinbase, Coinbase::Client.new(ENV['COINBASE_API_KEY'])
     set :email_regex, /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/
   end
+  def compose_and_send_email receiver, sender#, conf_link
+    #      msgstr = "Here is your confirmation link: #{conf_link}"
 
-  helpers do
-    def compose_and_send_email receiver, sender#, conf_link
-#      msgstr = "Here is your confirmation link: #{conf_link}"
-
-      mesgstr = <<MESSAGE_END
+    mesgstr = <<MESSAGE_END
 From: #{sender} <#{sender}>
 To: #{receiver} <#{receiver}>
 Subject: You have received a banana from #{sender}!
@@ -26,10 +24,9 @@ Subject: You have received a banana from #{sender}!
 <embed src='http://shareabanana/img/bananas/banana_1.svg' />
 MESSAGE_END
 
-      Net::SMTP.start('localhost') do |smtp|
-        smtp.send_message message, sender, receiver
-      end      
-    end
+    Net::SMTP.start('localhost') do |smtp|
+      smtp.send_message message, sender, receiver
+    end      
   end
 
   get '/' do
@@ -46,7 +43,7 @@ MESSAGE_END
     if @receiving_error || @sending_error
       erb :error
     else
-#      generate_conf_link params[:receiving], params[:sending]
+      #      generate_conf_link params[:receiving], params[:sending]
       compose_and_send_email params[:receiving], params[:sending]#, conf_link
       erb :request
     end
