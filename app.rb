@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'coinbase'
 require 'net/smtp'
-
+ 
 class String
   def validate regex
     !self[regex].nil?
