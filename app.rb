@@ -17,7 +17,7 @@ class Banana < Sinatra::Application
   def compose_and_send_email receiver, sender#, conf_link
     #      msgstr = "Here is your confirmation link: #{conf_link}"
     message = <<MESSAGE_END
-From: #{sender} <#{sender}>
+From: Share a Banana <shareabanana.com>
 To: #{receiver} <#{receiver}>
 Content-type: text/html
 Subject: You have received a banana from #{sender}!
