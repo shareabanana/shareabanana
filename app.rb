@@ -48,6 +48,7 @@ class Banana < Sinatra::Application
   end
 
   post '/request' do
+=begin
     unless params[:receiving_address].validate(settings.email_regex)
       @receiving_error = "Your 'receiving email' field contained invalid data (#{params[:receiving_address]})."
     end
@@ -63,9 +64,10 @@ class Banana < Sinatra::Application
     if @receiving_error || @sending_error #|| @recaptcha_error
       erb :error
     else
+=end
       banana_email params[:sending_address], params[:sending_name], params[:receiving_address]
       erb :request
-    end
+    #end
   end
   
   get '/balance' do
