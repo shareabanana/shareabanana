@@ -63,7 +63,6 @@ class Banana < Sinatra::Application
     if @receiving_error || @sending_error #|| @recaptcha_error
       erb :error
     else
-      generate_conf_link params[:receiving], params[:sending]
       banana_email params[:sending_address], params[:sending_name], params[:receiving_address]
       erb :request
     end
