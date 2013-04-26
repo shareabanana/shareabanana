@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'coinbase'
-require 'mail'
+require 'pony'
 
 class String
   def validate regex
@@ -14,33 +14,28 @@ class Banana < Sinatra::Application
     set :email_regex, /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/
   end
 
-  helpers do
-    smtp = {
-      :address => "smtp.sendgrid.net",
-      :port => '25',
-      :domain => 'heroku.com',
-      :authentication => :plain,
-      :user_name => ENV['SENDGRID_USERNAME'],
-      :password => ENV['SENDGRID_PASSWORD'],
-      :enable_starttls_auto => true,
-      :openssl_verify_mode => 'none'
-    }
-    
-    Mail.defaults {
-      delivery_method :smtp, smtp
-    }
-    
+  helpers do    
     def banana_email sender, receiver
       @banana = Dir.glob('public/img/bananas/img/*').sample
-      @body = erb(:banana_email, :layout => false)
+      body = erb(:banana_email, :layout => false)
       
-      Mail.deliver do
-        content_type 'text/html; charset=UTF-8'
-        from "delivery@shareabanana.com"
-        to receiver
-        subject "You have received a banana from #{sender}!"
-        body @body
-      end
+      Pony.mail({
+                  :to => receiver,
+                  :from => 'delivery@shareabanana.com',
+                  :subject => "You have received a banana from #{sender}!",
+                  :body => body,
+                  :via => :smtp,
+                  :via_options => {
+                    :address => "smtp.sendgrid.net",
+                    :port => '25',
+                    :domain => 'heroku.com',
+                    :authentication => :plain,
+                    :user_name => ENV['SENDGRID_USERNAME'],
+                    :password => ENV['SENDGRID_PASSWORD'],
+                    :enable_starttls_auto => true,
+                    :openssl_verify_mode => 'none'
+                  }
+                })
     end
   end
   
