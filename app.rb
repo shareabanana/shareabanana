@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'coinbase'
 require 'pony'
-require 'rack/recaptcha'
+# require 'rack/recaptcha'
 
 class String
   def validate regex
@@ -60,7 +60,7 @@ class Banana < Sinatra::Application
  #     @recaptcha_error = "You don't appear to be a human."
  #   end
 
-    if @receiving_error || @sending_error || @recaptcha_error
+    if @receiving_error || @sending_error #|| @recaptcha_error
       erb :error
     else
       # generate_conf_link params[:receiving], params[:sending]
