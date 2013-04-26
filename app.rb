@@ -15,7 +15,7 @@ class Banana < Sinatra::Application
   end
 
   helpers do
-    class BananaMailer < Sinatra::Application
+    class BananaMailer < Sinatra::Base
       smtp = {
         :address => "smtp.sendgrid.net",
         :port => '25',
