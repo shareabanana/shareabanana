@@ -33,7 +33,7 @@ class Banana < Sinatra::Application
       
       def self.banana_email sender, receiver
         @banana = Dir.glob('public/img/bananas/img/*').sample
-        @body = erb(:banana_email, :layout => false)
+        @body = super.erb(:banana_email, :layout => false)
         
         Mail.deliver do
           from "delivery@shareabanana.com"
