@@ -4,22 +4,23 @@
   <body>
     <div class="container form-sendbanana">
         <h2 class="form-sendbanana-heading">Share a Banana <img class="inline-banana" src="/img/inline_banana.png"></img></h2>
+
 	<% if @quantity_error %>
-	<%= "<b>Error:</b> #{@quantity_error}" %>
+	<%= "<b>Error:</b> #{@quantity_error}<br>" %>
 	<% end %>
-	<br>
+
 	<% if @receiving_error %>
-	<%= "<b>Error:</b> #{@receiving_error}" %>
+	<%= "<b>Error:</b> #{@receiving_error}<br>" %>
 	<% end %>
-	<br>
+
 	<% if @sending_error %>
-	<%= "<b>Error:</b> #{@sending_error}" %>
+	<%= "<b>Error:</b> #{@sending_error}<br>" %>
 	<% end %>
-	<br>
+
         <% if @recaptcha_error %>
-	<%= "<b>Error:</b> #{@recaptcha_error}" %>
+	<%= "<b>Error:</b> #{@recaptcha_error}<br>" %>
 	<% end %>
-        <br>
+
 	<br>
 	<button class="btn btn-large btn-danger" onclick="window.history.back()"><i class="icon-white icon-arrow-left"></i></button>
     </div> <!-- /container -->
