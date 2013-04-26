@@ -24,6 +24,7 @@ class Banana < Sinatra::Application
                   :from => 'delivery@shareabanana.com',
                   :subject => "You have received a banana from #{sender}!",
                   :html_body => body,
+                  :reply_to => sender,
                   :via => :smtp,
                   :via_options => {
                     :address => 'smtp.sendgrid.net',
