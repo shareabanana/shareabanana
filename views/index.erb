@@ -6,8 +6,9 @@
 
       <form class="form-sendbanana" action="/request" method="post">
         <h2 class="form-sendbanana-heading">Share a Banana <img class="inline-banana" src="/img/inline_banana.png"></img></h2>
-        <input type="text" class="input-block-level" placeholder="Receiver's email address" name="receiving">
-        <input type="text" class="input-block-level" placeholder="Your email address" name="sending">
+        <input type="text" class="input-block-level" placeholder="Receiver's email address" name="receiving_address">
+	<input type="text" class="input-block-level" placeholder="Your name" name="sending_name">
+        <input type="text" class="input-block-level" placeholder="Your email address" name="sending_address">
         <!--%= recaptcha_tag :ajax %-->
         <button class="btn btn-large btn-primary" type="submit">Send</button>
       </form>

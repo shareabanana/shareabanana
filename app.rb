@@ -14,21 +14,21 @@ class Banana < Sinatra::Application
     set :coinbase, Coinbase::Client.new(ENV['COINBASE_API_KEY'])
     set :email_regex, /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/
 
-use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC'], :private_key => ENV['RECAPTCHA_PRIVATE']
+    use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC'], :private_key => ENV['RECAPTCHA_PRIVATE']
     helpers Rack::Recaptcha::Helpers
   end
-
+  
   helpers do    
-    def banana_email sender, receiver
+    def banana_email sender_address, sender_name, receiver_address
       @banana = File.basename Dir.glob('public/img/bananas/*').sample
       body = erb(:banana_email, :layout => false)
       
       Pony.mail({
-                  :to => receiver,
+                  :to => receiver_address,
                   :from => 'delivery@shareabanana.com',
-                  :subject => "You have received a banana from #{sender}!",
+                  :subject => "You have received a banana from #{sender_name}!",
                   :html_body => body,
-                  :reply_to => sender,
+                  :reply_to => sender_address,
                   :via => :smtp,
                   :via_options => {
                     :address => 'smtp.sendgrid.net',
@@ -48,11 +48,11 @@ use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC'], :private_key => ENV
   end
 
   post '/request' do
-    unless params[:receiving].validate(settings.email_regex)
+    unless params[:receiving_address].validate(settings.email_regex)
       @receiving_error = "Your 'receiving email' field contained invalid data (#{params[:receiving]})."
     end
 
-    unless params[:sending].validate(settings.email_regex)
+    unless params[:sending_address].validate(settings.email_regex)
       @sending_error = "Your 'sending email' field contained invalid data (#{params[:sending]})."
     end
     
@@ -63,8 +63,8 @@ use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC'], :private_key => ENV
     if @receiving_error || @sending_error #|| @recaptcha_error
       erb :error
     else
-      # generate_conf_link params[:receiving], params[:sending]
-      banana_email params[:sending], params[:receiving]#, conf_link
+      generate_conf_link params[:receiving], params[:sending]
+      banana_email params[:sending_address], params[:sending_name], params[:receiving_address]
       erb :request
     end
   end
