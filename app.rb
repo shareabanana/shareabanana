@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'coinbase'
 require 'pony'
-# require 'rack/recaptcha'
+require 'rack/recaptcha'
 
 class String
   def validate regex
@@ -14,9 +14,9 @@ class Banana < Sinatra::Application
     set :coinbase, Coinbase::Client.new(ENV['COINBASE_API_KEY'])
     set :email_regex, /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/
 
-#    use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC'], :private_key => ENV['RECAPTCHA_PRIVATE']
-#    helpers Rack::Recaptcha::Helpers
-#  end
+use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC'], :private_key => ENV['RECAPTCHA_PRIVATE']
+    helpers Rack::Recaptcha::Helpers
+  end
 
   helpers do    
     def banana_email sender, receiver
@@ -55,11 +55,11 @@ class Banana < Sinatra::Application
     unless params[:sending].validate(settings.email_regex)
       @sending_error = "Your 'sending email' field contained invalid data (#{params[:sending]})."
     end
-
- #   unless recaptcha_valid?
- #     @recaptcha_error = "You don't appear to be a human."
- #   end
-
+    
+    unless recaptcha_valid?
+      @recaptcha_error = "You don't appear to be a human."
+    end
+    
     if @receiving_error || @sending_error #|| @recaptcha_error
       erb :error
     else
@@ -68,7 +68,7 @@ class Banana < Sinatra::Application
       erb :request
     end
   end
-
+  
   get '/balance' do
     return settings.coinbase.balance.to_f.to_s
   end
