@@ -49,11 +49,11 @@ class Banana < Sinatra::Application
 
   post '/request' do
     unless params[:receiving_address].validate(settings.email_regex)
-      @receiving_error = "Your 'receiving email' field contained invalid data (#{params[:receiving]})."
+      @receiving_error = "Your 'receiving email' field contained invalid data (#{params[:receiving_address]})."
     end
 
     unless params[:sending_address].validate(settings.email_regex)
-      @sending_error = "Your 'sending email' field contained invalid data (#{params[:sending]})."
+      @sending_error = "Your 'sending email' field contained invalid data (#{params[:sending_address]})."
     end
     
     unless recaptcha_valid?
