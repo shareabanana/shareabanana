@@ -8,7 +8,7 @@
         <h2 class="form-sendbanana-heading">Share a Banana <img class="inline-banana" src="/img/inline_banana.png"></img></h2>
         <input type="text" class="input-block-level" placeholder="Receiver's email address" name="receiving">
         <input type="text" class="input-block-level" placeholder="Your email address" name="sending">
-        <%= recaptcha_tag :ajax, :display { :theme => 'white' } %>
+        <%= recaptcha_tag :ajax %>
         <button class="btn btn-large btn-primary" type="submit">Send</button>
       </form>
       <%= erb :footer, :layout => false %>
