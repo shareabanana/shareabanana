@@ -26,14 +26,13 @@ class Banana < Sinatra::Application
                   :body => body,
                   :via => :smtp,
                   :via_options => {
-                    :address => "smtp.sendgrid.net",
-                    :port => '25',
+                    :address => 'smtp.sendgrid.net',
+                    :port => '587',
                     :domain => 'heroku.com',
                     :authentication => :plain,
                     :user_name => ENV['SENDGRID_USERNAME'],
                     :password => ENV['SENDGRID_PASSWORD'],
-                    :enable_starttls_auto => true,
-                    :openssl_verify_mode => 'none'
+                    :enable_starttls_auto => true
                   }
                 })
     end
