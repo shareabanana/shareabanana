@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'coinbase'
 require 'pony'
-require 'ayah_integration'
+require 'rack/recaptcha'
 
 class String
   def validate regex
@@ -13,6 +13,9 @@ class Banana < Sinatra::Application
   configure do
     set :coinbase, Coinbase::Client.new(ENV['COINBASE_API_KEY'])
     set :email_regex, /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/
+
+    use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC'], :private_key => ENV['RECAPTCHA_PRIVATE']
+    helpers Rack::Recaptcha::Helpers
   end
 
   helpers do    

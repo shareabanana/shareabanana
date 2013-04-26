@@ -1,9 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    ayah_integration (0.6.3)
-      json
-      rest-client
     coinbase (1.2.1)
       hashie (>= 1.2.0)
       httparty (>= 0.8.3)
@@ -30,8 +27,8 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
+    rack-recaptcha (0.6.6)
+      json
     sinatra (1.4.2)
       rack (~> 1.5, >= 1.5.2)
       rack-protection (~> 1.4)
@@ -45,8 +42,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ayah_integration
   coinbase
   pony
   rack
+  rack-recaptcha
   sinatra
