@@ -14,9 +14,9 @@ class Banana < Sinatra::Application
     set :coinbase, Coinbase::Client.new(ENV['COINBASE_API_KEY'])
     set :email_regex, /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/
 
-    use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC'], :private_key => ENV['RECAPTCHA_PRIVATE']
-    helpers Rack::Recaptcha::Helpers
-  end
+#    use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC'], :private_key => ENV['RECAPTCHA_PRIVATE']
+#    helpers Rack::Recaptcha::Helpers
+#  end
 
   helpers do    
     def banana_email sender, receiver
