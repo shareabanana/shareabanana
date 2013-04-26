@@ -35,14 +35,11 @@ class Banana < Sinatra::Application
       @body = erb(:banana_email, :layout => false)
       
       Mail.deliver do
+        content_type 'text/html; charset=UTF-8'
         from "delivery@shareabanana.com"
         to receiver
         subject "You have received a banana from #{sender}!"
-        
-        html_part do
-          content_type 'text/html; charset=UTF-8'
-          body @body
-        end
+        body @body
       end
     end
   end
