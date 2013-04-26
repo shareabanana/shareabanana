@@ -6,7 +6,7 @@ smtp = {
   :domain => 'heroku.com',
   :authentication => :plain,
   :user_name => ENV['SENDGRID_USERNAME'],
-  :password => ENV['SENDGRID_PASSWORD']
+  :password => ENV['SENDGRID_PASSWORD'],
   :enable_starttls_auto => true,
   :openssl_verify_mode => 'none'
 }
