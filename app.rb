@@ -16,7 +16,7 @@ class Banana < Sinatra::Application
 
   helpers do    
     def banana_email sender, receiver
-      @banana = File.basename Dir.glob('public/img/bananas/img/*').sample
+      @banana = File.basename Dir.glob('public/img/bananas/*').sample
       body = erb(:banana_email, :layout => false)
       
       Pony.mail({
