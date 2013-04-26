@@ -30,7 +30,7 @@ class Banana < Sinatra::Application
       delivery_method :smtp, smtp
     }
     
-    def self.banana_email sender, receiver
+    def banana_email sender, receiver
       @banana = Dir.glob('public/img/bananas/img/*').sample
       @body = erb(:banana_email, :layout => false)
       
@@ -63,7 +63,7 @@ class Banana < Sinatra::Application
     else
       #      generate_conf_link params[:receiving], params[:sending]
 
-      BananaMailer.banana_email params[:receiving], params[:sending]#, conf_link
+      banana_email params[:receiving], params[:sending]#, conf_link
       erb :request
     end
   end
