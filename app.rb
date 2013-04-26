@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'coinbase'
-require 'net/smtp'
+require './mailer'
  
 class String
   def validate regex
@@ -12,28 +12,6 @@ class Banana < Sinatra::Application
   configure do
     set :coinbase, Coinbase::Client.new(ENV['COINBASE_API_KEY'])
     set :email_regex, /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/
-  end
-
-  def compose_and_send_email receiver, sender#, conf_link
-    #      msgstr = "Here is your confirmation link: #{conf_link}"
-    message = <<MESSAGE_END
-From: Share a Banana <shareabanana.com>
-To: #{receiver} <#{receiver}>
-Content-type: text/html
-Subject: You have received a banana from #{sender}!
-
-<embed src='http://shareabanana.com/img/bananas/banana_1.svg' />
-<br>
-Send more bananas at <a href='http://shareabanana.com/'>shareabanana.com</a>
-MESSAGE_END
-
-    smtp = Net::SMTP.new 'smtp.gmail.com', 587
-    smtp.enable_starttls
-
-    smtp.start('gmail.com', 'shareabanana@gmail.com','shareabanana1', :login) do |smtpp|
-      smtpp.enable_starttls
-      smtpp.send_message message, sender, receiver
-    end      
   end
 
   get '/' do
@@ -51,7 +29,8 @@ MESSAGE_END
       erb :error
     else
       #      generate_conf_link params[:receiving], params[:sending]
-      compose_and_send_email params[:receiving], params[:sending]#, conf_link
+
+      BananaMailer.deliver_banana_email params[:receiving], params[:sending]#, conf_link
       erb :request
     end
   end
