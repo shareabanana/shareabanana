@@ -41,21 +41,13 @@ class Banana < Sinatra::Application
                   }
                 })
     end
-
-    def get_ayah_code
-      AYAH::Integration.new(ENV['AYAH_PUBLISHER'], ENV['AYAH_SCORING']).get_publisher_html
-    end
   end
   
   get '/' do
-    @ayah = get_ayah_code
     erb :index
   end
 
   post '/request' do
-    session_secret = params[:session_secret]
-    ayah = AYAH::Integration.new(ENV['AYAH_PUBLISHER'], ENV['AYAH_SCORING'])
-
     unless params[:receiving].validate(settings.email_regex)
       @receiving_error = "Your 'receiving email' field contained invalid data (#{params[:receiving]})."
     end
@@ -64,11 +56,11 @@ class Banana < Sinatra::Application
       @sending_error = "Your 'sending email' field contained invalid data (#{params[:sending]})."
     end
 
-    unless ayah.score_result(session_secret, CLIENT_IP)
-      @ayah_error = "You don't appear to be a human."
+    unless recaptcha_valid?
+      @recaptcha_error = "You don't appear to be a human."
     end
 
-    if @receiving_error || @sending_error || @ayah_error
+    if @receiving_error || @sending_error || @recaptcha_error
       erb :error
     else
       # generate_conf_link params[:receiving], params[:sending]
