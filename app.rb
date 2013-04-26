@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'coinbase'
-require './mailer'
- 
+require 'mail'
+
 class String
   def validate regex
     !self[regex].nil?
@@ -12,6 +12,10 @@ class Banana < Sinatra::Application
   configure do
     set :coinbase, Coinbase::Client.new(ENV['COINBASE_API_KEY'])
     set :email_regex, /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/
+  end
+
+  helpers do
+    require './banana_mailer'    
   end
 
   get '/' do
