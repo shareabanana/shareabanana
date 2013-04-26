@@ -15,7 +15,7 @@ class Banana < Sinatra::Application
   end
 
   helpers do
-    class BananaMailer
+    class BananaMailer < Sinatra::Application
       smtp = {
         :address => "smtp.sendgrid.net",
         :port => '25',
@@ -33,7 +33,7 @@ class Banana < Sinatra::Application
       
       def self.banana_email sender, receiver
         @banana = Dir.glob('public/img/bananas/img/*').sample
-        @body = Sinatra::Templates.erb(:banana_email, :layout => false)
+        @body = erb(:banana_email, :layout => false)
         
         Mail.deliver do
           from "delivery@shareabanana.com"
