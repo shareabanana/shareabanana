@@ -30,7 +30,7 @@ class Banana < Sinatra::Application
     else
       #      generate_conf_link params[:receiving], params[:sending]
 
-      BananaMailer.deliver_banana_email params[:receiving], params[:sending]#, conf_link
+      BananaMailer.banana_email params[:receiving], params[:sending]#, conf_link
       erb :request
     end
   end
