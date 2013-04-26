@@ -23,7 +23,7 @@ class Banana < Sinatra::Application
                   :to => receiver,
                   :from => 'delivery@shareabanana.com',
                   :subject => "You have received a banana from #{sender}!",
-                  :body => body,
+                  :html_body => body,
                   :via => :smtp,
                   :via_options => {
                     :address => 'smtp.sendgrid.net',
