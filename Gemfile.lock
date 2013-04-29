@@ -29,6 +29,7 @@ GEM
       rack
     rack-recaptcha (0.6.6)
       json
+    redis (3.0.1)
     sinatra (1.4.2)
       rack (~> 1.5, >= 1.5.2)
       rack-protection (~> 1.4)
@@ -46,4 +47,5 @@ DEPENDENCIES
   pony
   rack
   rack-recaptcha
+  redis
   sinatra
