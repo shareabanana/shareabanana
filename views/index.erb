@@ -9,8 +9,8 @@
         <input type="text" class="input-block-level" placeholder="Receiver's email address" name="receiving_address">
 	<input type="text" class="input-block-level" placeholder="Your name" name="sending_name">
         <input type="text" class="input-block-level" placeholder="Your email address" name="sending_address">
-        <%= recaptcha_tag :challenge, :display => { :theme => 'clean' } %>
-        <%= recaptcha_tag :noscript, :display => { :theme => 'clean' } %>
+        <%= recaptcha_tag :challenge, :display => { :theme => 'white' } %>
+        <%= recaptcha_tag :noscript, :display => { :theme => 'white' } %>
         <button class="btn btn-large btn-primary" type="submit">Send</button>
       </form>
       <%= erb :footer, :layout => false %>
