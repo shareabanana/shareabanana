@@ -9,18 +9,11 @@
         <input type="text" class="input-block-level" placeholder="Receiver's email address" name="receiving_address">
 	<input type="text" class="input-block-level" placeholder="Your name" name="sending_name">
         <input type="text" class="input-block-level" placeholder="Your email address" name="sending_address">
-        <%= recaptcha_tag :challenge, :width => 200, :display => { :theme => 'clean' } %>
-        <%= recaptcha_tag :noscript, :width => 200, :display => { :theme => 'clean' } %>
+        <%= recaptcha_tag :challenge, :width => 200, :height => 100, :display => { :theme => 'clean' } %>
+        <%= recaptcha_tag :noscript, :width => 200, :height => 100, :display => { :theme => 'clean' } %>
         <button class="btn btn-large btn-primary" type="submit">Send</button>
       </form>
       <%= erb :footer, :layout => false %>
-	
-    </div> <!-- /container -->
-
-    <!-- Le javascript
-	 ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    </div>
   </body>
 </html>
