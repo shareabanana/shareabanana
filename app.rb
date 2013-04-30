@@ -2,7 +2,6 @@ require 'sinatra'
 require 'coinbase'
 require 'pony'
 require 'rack/recaptcha'
-require 'redis'
 
 =begin
 COINBASE_API_KEY
@@ -10,7 +9,6 @@ RECAPTCHA_PUBLIC
 RECAPTCHA_PRIVATE
 SENDGRID_USERNAME
 SENDGRID_PASSWORD
-REDISCLOUD_URL
 =end
 
 class String
@@ -23,9 +21,6 @@ class Banana < Sinatra::Application
   configure do
     set :coinbase, Coinbase::Client.new(ENV['COINBASE_API_KEY'])
     set :email_regex, /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/
-
-    uri = URI.parse ENV['REDISCLOUD_URL']
-    @redis = Redis.new :host => uri.host, :port => uri.port, :password => uri.password
 
     use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC'], :private_key => ENV['RECAPTCHA_PRIVATE']
     helpers Rack::Recaptcha::Helpers
