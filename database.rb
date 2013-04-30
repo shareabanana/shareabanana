@@ -11,7 +11,7 @@ class Transaction
   property :to_address, String
   property :from_address, String
   property :from_name, String
-  property :created_at, DateTime
+  property :created_at, DateTime, :default => lambda { Time.now }
 end
 
 DataMapper.finalize
