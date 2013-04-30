@@ -99,6 +99,7 @@ DEPENDENCIES
   coinbase
   data_mapper
   dm-postgres-adapter
+  json
   pony
   rack
   rack-recaptcha

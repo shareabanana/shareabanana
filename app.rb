@@ -2,13 +2,17 @@ require 'sinatra'
 require 'coinbase'
 require 'pony'
 require 'rack/recaptcha'
+require 'json'
+require './database.rb'
 
 =begin
 COINBASE_API_KEY
+COINBAE_CALLBACK_SECRET
 RECAPTCHA_PUBLIC
 RECAPTCHA_PRIVATE
 SENDGRID_USERNAME
 SENDGRID_PASSWORD
+HEROKU_POSTGRESQL_WHITE_URL
 =end
 
 class String
@@ -78,6 +82,15 @@ class Banana < Sinatra::Application
   
   get '/balance' do
     return settings.coinbase.balance.to_f.to_s
+  end
+
+  get "/payment/#{ENV['COINBASE_CALLBACK_SECRET']}" do
+    order = JSON.parse params[:order]
+    return order
+  end
+
+  get '/success' do
+    #hello
   end
 end
 
