@@ -1,7 +1,7 @@
 require 'data_mapper'
 require 'dm-postgres-adapter'
 
-DataMapper.setup :default, ENV['HEROKU_POSTGRES_WHITE_URL']
+DataMapper.setup :default, ENV['HEROKU_POSTGRESQL_WHITE_URL']
 
 class Transaction
   include DataMapper::Resource
