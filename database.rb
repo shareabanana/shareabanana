@@ -12,6 +12,19 @@ class Transaction
   property :from_address, String
   property :from_name, String
   property :created_at, DateTime, :default => lambda { Time.now }
+
+  has 1, :confirmation
+
+  def send_card; end
+end
+
+class Confirmation
+  include DataMapper::Resource
+
+  property :id, Serial
+  property :key, String
+
+  belongs_to, :transaction
 end
 
 DataMapper.finalize

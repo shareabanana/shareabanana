@@ -30,28 +30,53 @@ class Banana < Sinatra::Application
     helpers Rack::Recaptcha::Helpers
   end
   
-  helpers do    
-    def banana_email sender_address, sender_name, receiver_address
+  helpers do
+    def random_key
+      o =  [('a'..'z'),('A'..'Z'),('0'..'9')].map{|i| i.to_a}.flatten
+      (0...50).map{ o[rand(o.length)] }.join
+    end
+
+    def mail_helper subj, body, from_address, to_address
+      conf = {
+        :to => to_address,
+        :from => 'delivery@shareabanana.com',
+        :subject => subj,
+        :html_body => body,
+        :reply_to => from_address,
+        :via => :smtp,
+        :via_options => {
+          :address => 'smtp.sendgrid.net',
+          :port => '587',
+          :domain => 'heroku.com',
+          :authentication => :plain,
+          :user_name => ENV['SENDGRID_USERNAME'],
+          :password => ENV['SENDGRID_PASSWORD'],
+          :enable_starttls_auto => true
+        }
+      }
+
+      Pony.mail conf
+    end
+
+    def confirmation_email from_address, from_name, to_address
+      t = Transaction.new :from_address => from_address, :from_name => from_name, :to_address => to_address
+      k = Confirmation.new :key => random_key
+      t.confirmation = k
+      k.save!
+      t.save!
+
+      body = erb(:confirm_email, :layout => false)
+      subj = "Confirm your email, #{from_name} :)"
+
+      mail_helper subj, body, from_address, to_address
+    end
+    
+    def banana_email from_address, from_name, to_address
       @banana = File.basename Dir.glob('public/img/bananas/*').sample
       body = erb(:banana_email, :layout => false)
-      
-      Pony.mail({
-                  :to => receiver_address,
-                  :from => 'delivery@shareabanana.com',
-                  :subject => "You have received a banana from #{sender_name}!",
-                  :html_body => body,
-                  :reply_to => sender_address,
-                  :via => :smtp,
-                  :via_options => {
-                    :address => 'smtp.sendgrid.net',
-                    :port => '587',
-                    :domain => 'heroku.com',
-                    :authentication => :plain,
-                    :user_name => ENV['SENDGRID_USERNAME'],
-                    :password => ENV['SENDGRID_PASSWORD'],
-                    :enable_starttls_auto => true
-                  }
-                })
+      subj = "You have received a banana from #{from_name}!"
+
+      mail_helper subj, body, from_address, to_address
     end
   end
   
@@ -75,9 +100,17 @@ class Banana < Sinatra::Application
     if @receiving_error || @sending_error || @recaptcha_error
       erb :error
     else
-      banana_email params[:sending_address], params[:sending_name], params[:receiving_address]
+      confirm_email params[:sending_address], params[:sending_name], params[:receiving_address]
       erb :request
     end
+  end
+
+  get '/confirm/:key' do
+    k = Confirmation.first :key => params[:key]
+    t = Transaction.first :confirmation => k
+    banana_email t.from_address, t.from_name, t.to_address
+    k.destroy
+    erb :confirmed
   end
   
   get '/balance' do
@@ -93,4 +126,3 @@ class Banana < Sinatra::Application
     #hello
   end
 end
-
