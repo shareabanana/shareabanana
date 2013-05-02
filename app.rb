@@ -38,7 +38,7 @@ class Banana < Sinatra::Application
       Pony.mail({
                   :to => receiver_address,
                   :from => 'delivery@shareabanana.com',
-                  :subject => "You have received a banana from #{sender_name}!",
+                  :subject => "#{sender_name} shared a banana with you!",
                   :html_body => body,
                   :reply_to => sender_address,
                   :via => :smtp,
