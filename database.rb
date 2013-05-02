@@ -22,7 +22,7 @@ class Confirmation
   include DataMapper::Resource
 
   property :id, Serial
-  property :key, String
+  property :ckey, String
 
   belongs_to :transaction
 end
