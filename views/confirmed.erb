@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%= erb :header, :layout => false %>
+  <body>
+    <div class="container">
+
+      <form class="form-sendbanana" action="/" method="post">
+        <h2 class="form-sendbanana-heading">Share a Banana <img class="inline-banana" src="/img/inline_banana.png"></img></h2>
+	You have shared a banana with <%= @to_address %>
+      </form>
+      <%= erb :footer, :layout => false %>
+    </div>
+  </body>
+</html>
