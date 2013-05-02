@@ -108,9 +108,10 @@ class Banana < Sinatra::Application
 
   get '/confirm/:key' do
     t = Transaction.first :"confirmation.ckey" => params[:key]
-    return t.to_json
     banana_email t.from_address, t.from_name, t.to_address
-    k.destroy
+    @to_address = t.to_address
+    t.k.destroy
+    t.reload
     erb :confirmed
   end
   
