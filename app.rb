@@ -12,7 +12,7 @@ RECAPTCHA_PUBLIC
 RECAPTCHA_PRIVATE
 SENDGRID_USERNAME
 SENDGRID_PASSWORD
-HEROKU_POSTGRESQL_WHITE_URL
+HEROKU_POSTGRESQL_URL
 =end
 
 class String
@@ -107,12 +107,19 @@ class Banana < Sinatra::Application
   end
 
   get '/confirm/:key' do
-    t = Transaction.first :"confirmation.ckey" => params[:key]
-    banana_email t.from_address, t.from_name, t.to_address
-    @to_address = t.to_address
-    t.confirmation.destroy
-    t.reload
-    erb :confirmed
+    unless params[:key]
+      t = Transaction.first :"confirmation.ckey" => params[:key]
+      unless t
+        @sending_error = "That does not appear to be a valid confirmation key. Sorry :-/"
+        erb :error
+      end
+    else
+      banana_email t.from_address, t.from_name, t.to_address
+      @to_address = t.to_address
+      t.confirmation.destroy
+      t.reload
+      erb :confirmed
+    end
   end
   
   get '/balance' do
