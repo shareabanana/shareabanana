@@ -65,10 +65,12 @@ class Banana < Sinatra::Application
       k.save!
       t.save!
 
+      @key = random_key
+
       body = erb(:confirm_email, :layout => false)
       subj = "Confirm your email, #{from_name} :)"
 
-      mail_helper subj, body, from_address, to_address
+      mail_helper subj, body, from_address, from_address
     end
     
     def banana_email from_address, from_name, to_address
