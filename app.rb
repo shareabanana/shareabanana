@@ -74,7 +74,7 @@ class Banana < Sinatra::Application
     def banana_email from_address, from_name, to_address
       @banana = File.basename Dir.glob('public/img/bananas/*').sample
       body = erb(:banana_email, :layout => false)
-      subj = "You have received a banana from #{from_name}!"
+      subj = "#{from_name} has shared a banana with you!"
 
       mail_helper subj, body, from_address, to_address
     end
