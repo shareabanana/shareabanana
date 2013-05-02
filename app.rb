@@ -58,7 +58,7 @@ class Banana < Sinatra::Application
       Pony.mail conf
     end
 
-    def confirmation_email from_address, from_name, to_address
+    def confirm_email from_address, from_name, to_address
       t = Transaction.new :from_address => from_address, :from_name => from_name, :to_address => to_address
       k = Confirmation.new :ckey => random_key
       t.confirmation = k
