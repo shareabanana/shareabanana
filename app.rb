@@ -59,8 +59,8 @@ class Banana < Sinatra::Application
     end
 
     def confirm_email from_address, from_name, to_address
-      t = Transaction.new :from_address => from_address, :from_name => from_name, :to_address => to_address
-      k = Confirmation.new :ckey => random_key
+      t = Transaction.create :from_address => from_address, :from_name => from_name, :to_address => to_address
+      k = Confirmation.create :ckey => random_key
       t.confirmation = k
       k.save!
       t.save!
