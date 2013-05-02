@@ -110,7 +110,7 @@ class Banana < Sinatra::Application
     t = Transaction.first :"confirmation.ckey" => params[:key]
     banana_email t.from_address, t.from_name, t.to_address
     @to_address = t.to_address
-    t.k.destroy
+    t.conffirmation.destroy
     t.reload
     erb :confirmed
   end
