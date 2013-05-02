@@ -59,13 +59,12 @@ class Banana < Sinatra::Application
     end
 
     def confirm_email from_address, from_name, to_address
-      t = Transaction.create :from_address => from_address, :from_name => from_name, :to_address => to_address
-      k = Confirmation.create :ckey => random_key
-      t.confirmation = k
-      k.save!
-      t.save!
-
       @key = random_key
+
+      t = Transaction.create :from_address => from_address, :from_name => from_name, :to_address => to_address
+      k = Confirmation.create :ckey => @key
+      t.confirmation = k
+      t.save!
 
       body = erb(:confirm_email, :layout => false)
       subj = "Confirm your email, #{from_name} :)"
@@ -109,7 +108,7 @@ class Banana < Sinatra::Application
 
   get '/confirm/:key' do
     t = Transaction.first :"confirmation.ckey" => params[:key]
-    return t
+    return t.to_json
     banana_email t.from_address, t.from_name, t.to_address
     k.destroy
     erb :confirmed
