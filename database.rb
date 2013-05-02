@@ -11,7 +11,7 @@ class Transaction
   property :to_address, String
   property :from_address, String
   property :from_name, String
-  property :created_at, DateTime, :default => lambda { Time.now }
+  property :created_at, DateTime, :default => ->(r,b) { Time.now }
 
   has 1, :confirmation
 
@@ -24,7 +24,7 @@ class Confirmation
   property :id, Serial
   property :key, String
 
-  belongs_to, :transaction
+  belongs_to :transaction
 end
 
 DataMapper.finalize
