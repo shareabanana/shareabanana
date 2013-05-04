@@ -107,12 +107,10 @@ class Banana < Sinatra::Application
   end
 
   get '/confirm/:key' do
-    unless params[:key]
-      t = Transaction.first :"confirmation.ckey" => params[:key]
-      unless t
-        @sending_error = "That does not appear to be a valid confirmation key. Sorry :-/"
-        erb :error
-      end
+    t = Transaction.first :"confirmation.ckey" => params[:key]
+    unless t
+      @sending_error = "That does not appear to be a valid confirmation key. Sorry :-/"
+      erb :error
     else
       banana_email t.from_address, t.from_name, t.to_address
       @to_address = t.to_address
