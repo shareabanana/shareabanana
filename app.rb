@@ -94,9 +94,9 @@ class Banana < Sinatra::Application
       @sending_error = "Your 'sending email' field contained invalid data (#{params[:sending_address]})."
     end
     
-    unless recaptcha_valid?
-      @recaptcha_error = "You don't appear to be a human."
-    end
+#    unless recaptcha_valid?
+#      @recaptcha_error = "You don't appear to be a human."
+#    end
     
     if @receiving_error || @sending_error || @recaptcha_error
       erb :error
